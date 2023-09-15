@@ -1,0 +1,37 @@
+lock_inventory: "&aYour inventory is now locked. Use /unlockdrop to unlock."
+
+already_locked: "&cYour inventory is already locked!"
+
+unlock_inventory: "&aYour inventory is now unlocked."
+
+not_locked: "&cYour inventory is not locked!"
+
+inventory_locked: "&cDropping items is locked. Use /unlockdrop to unlock."
+
+drop_rem_of_player: "&6Drop Removal History of items thrown by {PLAYER}"
+
+all_players: "All players"
+
+thrown_by: "Thrown by {PLAYER}"
+
+picked_up_by: "Picked up by {PLAYER}"
+
+removal_at: "Removal at {TIMESTAMP}"
+
+del_clearlag: "Deleted by ClearLag"
+
+del_despawn: "Item despawned"
+
+del_void: "Deleted by Void"
+
+specify_reason: "&cPLease, specify the drop removal reason you're searching for"
+
+cannot_find_player: "&cCannot find player by that name/UUID."
+
+specify_player_check: "&cPlease, specify the player you want to check."
+
+no_perm_check_all: "&cYou don't have permission to check all drop removal history."
+
+no_perm_check_of_player: "&cYou don't have permission to check another player's drop history"
+
+reloaded: "&aDropLock reloaded!"

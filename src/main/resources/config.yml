@@ -1,0 +1,30 @@
+# Do you want the plugin to lock user inventory by default (when user first time joined)?
+inventory_locked_by_default: true
+
+# Prefix for the plugin messages
+prefix: "&8[&aDropLock&8] &r"
+
+# Plugin info message
+plugin_info_message: "&7DropLock plugin created by Clytage with &c❤"
+
+# Whether drop removal by clearlag should be recorded
+record_clearlag_removal: true
+
+# Whether drop removal by player pickup should be recorded
+record_player_removal: true
+
+# Whether drop removal by despawn should be recorded
+record_despawn_removal: false
+
+# Whether drop removal by void should be recorded
+record_void_removal: true
+
+drop_removal_history_purge:
+  # Should the drop removal history be purged?
+  enabled: true
+
+  # What is the interval for purge checking (in minutes)
+  minutes_interval: 15
+
+  # The maximum allowed time for drop removal history data to be alive (in minutes)
+  minutes_alive: 180

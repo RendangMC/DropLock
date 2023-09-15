@@ -1,0 +1,49 @@
+name: droplock
+version: '1.1'
+author: Clytage
+main: org.clytage.droplock.DropLock
+api-version: '1.20'
+load: STARTUP
+depend:
+  - ClearLag
+  - InteractiveChat
+
+permissions:
+  droplock.reload:
+    description: Allow user to reload the plugin using /dlreload
+    default: false
+  droplock.droprem.history.checkall:
+    description: Allow checking all drop removal history
+    default: false
+  droplock.droprem.history.checkplayer:
+    description: Allow checking another player's drop removal history
+    default: false
+  droplock.droprem.history.checkclearlag:
+    description: Allow checking all clearlag drop removal history
+    default: false
+  droplock.droprem.history.checkdespawn:
+    description: Allow checking all despawn drop removal history
+    default: false
+  droplock.droprem.history.checkbyplayer:
+    description: Allow checking all drop removal history caused by another player
+    default: false
+
+commands:
+  dlreload:
+    description: Reload plugin config and messages
+    usage: /dlreload
+  lockdrop:
+    description: Lock the inventory dropping.
+    usage: /lockdrop
+  unlockdrop:
+    description: Unlock the inventory dropping.
+    usage: /unlockdrop
+  drop:
+    description: Display plugin info
+    usage: /drop
+  dropremhistory:
+    description: View drop history.
+    usage: /dropremhistory <all | <username>>
+  drhbr:
+    description: View drop removal history by specific reason
+    usage: /drhbr <clearlag | despawn | <username>>
