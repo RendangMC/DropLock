@@ -2,14 +2,13 @@ package org.clytage.droplock;
 
 import me.minebuilders.clearlag.events.EntityRemoveEvent;
 
-import org.bukkit.command.*;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.entity.EntityPickupItemEvent;
-import org.bukkit.event.entity.ItemDespawnEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.ItemDespawnEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,9 +18,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
+import org.bukkit.command.*;
 import org.bukkit.ChatColor;
-import org.jetbrains.annotations.NotNull;
+
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.io.File;

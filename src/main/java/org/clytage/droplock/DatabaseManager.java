@@ -6,16 +6,17 @@ import com.loohp.interactivechat.api.InteractiveChatAPI;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Item;
 import org.bukkit.ChatColor;
 
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import java.nio.file.Paths;
-import java.sql.*;
 import java.util.UUID;
+import java.sql.*;
+
 public class DatabaseManager {
     private DropLock plugin;
     private Connection conn;

@@ -1,15 +1,15 @@
 package org.clytage.droplock;
 
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.ChatColor;
 
-import java.io.File;
+import java.util.logging.Level;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
+import java.io.File;
 
 public class MessagesManager {
     private DropLock plugin;
