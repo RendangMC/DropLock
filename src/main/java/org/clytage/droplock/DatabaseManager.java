@@ -57,7 +57,7 @@ public class DatabaseManager {
         try {
             Statement stmt = conn.createStatement();
 
-            stmt.executeUpdate("DELETE FROM `drops` WHERE (" + System.currentTimeMillis() + " - `timestamp`) >= " + this.plugin.maxAlive);
+            stmt.executeUpdate("DELETE FROM `droprem` WHERE (" + System.currentTimeMillis() + " - `timestamp`) >= " + this.plugin.maxAlive);
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
