@@ -1,7 +1,5 @@
 package org.clytage.droplock;
 
-import me.minebuilders.clearlag.events.EntityRemoveEvent;
-
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.ConfigurationSection;
@@ -16,7 +14,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.command.*;
 import org.bukkit.ChatColor;
@@ -26,15 +23,16 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.io.File;
+import java.util.logging.Level;
 
 public class DropLock extends JavaPlugin implements CommandExecutor, Listener, TabCompleter {
     public final MessagesManager msg = new MessagesManager(this);
 
-    private final DatabaseManager db = new DatabaseManager(this);
+    public final DatabaseManager db = new DatabaseManager(this);
 
     private final Set<UUID> lockedPlayers = new HashSet<>();
 
-    private FileConfiguration config;
+    public FileConfiguration config;
 
     public boolean inventoryLockedByDefault = true;
 
@@ -70,6 +68,11 @@ public class DropLock extends JavaPlugin implements CommandExecutor, Listener, T
         drhbr.setTabCompleter(this);
 
         getServer().getPluginManager().registerEvents(this, this);
+        if (getServer().getPluginManager().getPlugin("ClearLag") != null) {
+            getServer().getPluginManager().registerEvents(new ClearLagHandler(this), this);
+        } else if (this.config.getBoolean("record_clearlag_removal", false)) {
+            getLogger().log(Level.WARNING, "It seems that ClearLag is not installed. This plugin will not be able to record clearlag drop removals.");
+        }
     }
 
     @Nullable
@@ -106,17 +109,6 @@ public class DropLock extends JavaPlugin implements CommandExecutor, Listener, T
         if (this.lockedPlayers.contains(player.getUniqueId())) {
             event.setCancelled(true);
             player.sendMessage(this.prefix + this.msg.getMessage("inventory_locked"));
-        }
-    }
-
-    @EventHandler
-    public void onClearLagRemoveEntity(EntityRemoveEvent event) {
-        if (!this.config.getBoolean("record_clearlag_removal", false)) return;
-
-        for (Entity ent : event.getEntityList()) {
-            if (!(ent instanceof Item)) continue;
-
-            this.db.addDropRem((Item) ent, "$CLEARLAG");
         }
     }
 

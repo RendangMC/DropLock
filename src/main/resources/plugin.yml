@@ -5,7 +5,6 @@ main: org.clytage.droplock.DropLock
 api-version: '1.20'
 load: STARTUP
 depend:
-  - ClearLag
   - InteractiveChat
 
 permissions:
