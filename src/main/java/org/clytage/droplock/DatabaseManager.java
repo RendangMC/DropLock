@@ -3,6 +3,7 @@ package org.clytage.droplock;
 import com.loohp.interactivechat.libs.net.kyori.adventure.text.Component;
 import com.loohp.interactivechat.api.InteractiveChatAPI;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.command.CommandSender;
@@ -90,8 +91,8 @@ public class DatabaseManager {
                 if (player == null) {
                     String uuid = res.getString("uuid");
                     if (uuid != null) {
-                        Player thrower = this.plugin.getServer().getPlayer(UUID.fromString(uuid));
-                        if (thrower != null) {
+                        OfflinePlayer thrower = this.plugin.getServer().getOfflinePlayer(UUID.fromString(uuid));
+                        if (thrower.getName() != null) {
                             compo = compo.append(Component.text(" - " + this.plugin.msg.getMessage("thrown_by").replace("{PLAYER}", thrower.getName())));
                         }
                     }
@@ -105,8 +106,8 @@ public class DatabaseManager {
                 } else if (pickup.equals("$VOID")) {
                     compo = compo.append(Component.text(" - " + this.plugin.msg.getMessage("del_void")));
                 } else {
-                    Player pick = this.plugin.getServer().getPlayer(UUID.fromString(pickup));
-                    if (pick != null) {
+                    OfflinePlayer pick = this.plugin.getServer().getOfflinePlayer(UUID.fromString(pickup));
+                    if (pick.getName() != null) {
                         compo = compo.append(Component.text(" - " + this.plugin.msg.getMessage("picked_up_by").replace("{PLAYER}", pick.getName())));
                     }
                 }
