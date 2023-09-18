@@ -1,3 +1,3 @@
-# @clytage/template
+# DropLock
 
-A template to generate well-configured project base for Clytage.
+A configurable plugin that allows you to disable/prevent dropping items from inventory for your world/server.
