@@ -5,7 +5,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.ItemDespawnEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -17,13 +16,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Item;
 import org.bukkit.command.*;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
-import java.io.File;
 import java.util.logging.Level;
+import java.io.File;
+import java.util.*;
 
 public class DropLock extends JavaPlugin implements CommandExecutor, Listener, TabCompleter {
     public final MessagesManager msg = new MessagesManager(this);
@@ -109,7 +110,32 @@ public class DropLock extends JavaPlugin implements CommandExecutor, Listener, T
         if (this.lockedPlayers.contains(player.getUniqueId())) {
             event.setCancelled(true);
             player.sendMessage(this.prefix + this.msg.getMessage("inventory_locked"));
+            return;
         }
+
+        FileConfiguration config = this.config;
+        DatabaseManager db = this.db;
+        BukkitRunnable run = new BukkitRunnable() {
+            int timer = 0;
+
+            @Override
+            public void run() {
+                timer++;
+
+                Location location = event.getItemDrop().getLocation();
+                if (location.getBlockY() <= (location.getWorld().getMinHeight() - 64)) {
+                    if (config.getBoolean("record_void_removal", false)) {
+                        db.addDropRem((Item) event.getItemDrop(), "$VOID");
+                    }
+
+                    cancel();
+                } else if (timer == 100) {
+                    cancel();
+                }
+            }
+        };
+
+        run.runTaskTimer(this, 0, 1);
     }
 
     @EventHandler
@@ -124,18 +150,6 @@ public class DropLock extends JavaPlugin implements CommandExecutor, Listener, T
         if (!this.config.getBoolean("record_player_removal", false) || !(event.getEntity() instanceof Player)) return;
 
         this.db.addDropRem(event.getItem(), event.getEntity().getUniqueId().toString());
-    }
-
-    @EventHandler
-    public void onEntityDamage(EntityDamageEvent event) {
-        if (
-                !this.config.getBoolean("record_void_removal", false) ||
-                        !(event.getEntity() instanceof Item) ||
-                        event.getCause() != EntityDamageEvent.DamageCause.VOID
-        ) return;
-
-        this.db.addDropRem((Item) event.getEntity(), "$VOID");
-        event.getEntity().remove();
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
