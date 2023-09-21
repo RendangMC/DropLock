@@ -90,6 +90,7 @@ public class DropLock extends JavaPlugin implements CommandExecutor, Listener, T
         } else if (name.equals("drhbr")) {
             if (sender.hasPermission("droplock.droprem.history.checkclearlag")) possible.add("clearlag");
             if (sender.hasPermission("droplock.droprem.history.checkdespawn")) possible.add("despawn");
+            if (sender.hasPermission("droplock.droprem.history.checkvoid")) possible.add("void");
             if (sender.hasPermission("droplock.droprem.history.checkbyplayer")) possible.addAll(getServer().getOnlinePlayers().stream().map(player -> player.getName()).toList());
         }
 
@@ -210,8 +211,26 @@ public class DropLock extends JavaPlugin implements CommandExecutor, Listener, T
         String reason = null;
         int page = 1;
 
-        if (args[0].matches("clearlag|despawn")) {
-            reason = args[0].equals("clearlag") ? "$CLEARLAG" : "$DESPAWN";
+        if (args[0].matches("clearlag|despawn|void")) {
+            if (args[0].equals("clearlag") && !sender.hasPermission("droplock.droprem.history.checkclearlag")) {
+                sender.sendMessage(this.prefix + this.msg.getMessage("no_perm_check_by_clearlag"));
+                return;
+            }
+
+            if (args[0].equals("despawn") && !sender.hasPermission("droplock.droprem.history.checkdespawn")) {
+                sender.sendMessage(this.prefix + this.msg.getMessage("no_perm_check_by_despawn"));
+                return;
+            }
+
+            if (args[0].equals("void") && !sender.hasPermission("droplock.droprem.history.checkvoid")) {
+                sender.sendMessage(this.prefix + this.msg.getMessage("no_perm_check_by_void"));
+                return;
+            }
+
+            reason = args[0].equals("clearlag") ? "$CLEARLAG" : args[0].equals("despawn") ? "$DESPAWN" : "$VOID";
+        } else if (!sender.hasPermission("droplock.droprem.history.checkbyplayer")) {
+            sender.sendMessage(this.prefix + this.msg.getMessage("no_perm_check_by_player"));
+            return;
         } else {
             Player target = null;
 

@@ -34,4 +34,12 @@ no_perm_check_all: "&cYou don't have permission to check all drop removal histor
 
 no_perm_check_of_player: "&cYou don't have permission to check another player's drop history"
 
+no_perm_check_by_clearlag: "&cYou don't have permission to check all drop history caused by ClearLag"
+
+no_perm_check_by_despawn: "&cYou don't have permission to check all drop history caused by Despawn"
+
+no_perm_check_by_player: "&cYou don't have permission to check all drop history caused by players"
+
+no_perm_check_by_void: "&cYou don't have permission to check all drop history caused by Void"
+
 reloaded: "&aDropLock reloaded!"
