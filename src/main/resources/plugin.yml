@@ -7,6 +7,9 @@ load: STARTUP
 depend:
   - InteractiveChat
 
+softdepend:
+  - ClearLag
+
 permissions:
   droplock.reload:
     description: Allow user to reload the plugin using /dlreload
@@ -24,7 +27,10 @@ permissions:
     description: Allow checking all despawn drop removal history
     default: false
   droplock.droprem.history.checkbyplayer:
-    description: Allow checking all drop removal history caused by another player
+    description: Allow checking all drop removal history caused by player
+    default: false
+  droplock.droprem.history.checkvoid:
+    description: Allow checking all void drop removal history
     default: false
 
 commands:
